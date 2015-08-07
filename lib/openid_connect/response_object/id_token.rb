@@ -19,6 +19,10 @@ module OpenIDConnect
       end
 
       def verify!(expected = {})
+        print "Is exp afer time? " + exp.to_i > Time.now.to_i + "\n"
+        print "Is iss the same " + iss == expected[:issuer] + "\n"
+        print "Does aud include client id? " + Array(aud).include?(expected[:client_id]) + "\n"
+        print "Is nonce the same?" + nonce == expected[:nonce] + "\n"
         exp.to_i > Time.now.to_i &&
         iss == expected[:issuer] &&
         Array(aud).include?(expected[:client_id]) && # aud(ience) can be a string or an array of strings
